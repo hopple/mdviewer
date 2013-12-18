@@ -23,6 +23,7 @@ import sys
 def md_to_html(filename, rtime):
     html_filename = "%s.html"
     name, filename_extension = filename.split(".")
+    THIS_DIR = os.path.dirname(os.path.abspath(__file__))
     input_file = codecs.open(filename, mode="r", encoding="utf-8")
     text = input_file.read()
     html = markdown.markdown(text)
@@ -35,8 +36,7 @@ def md_to_html(filename, rtime):
     output_file.close()
 
 def main():
-
-    filename = "test.md"
+    filename = "README.md"
     rtime = 2
     O_EVTONLY = 0x8000
     fd = os.open(filename, O_EVTONLY)
