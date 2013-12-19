@@ -34,7 +34,7 @@ def md_to_html(filename, rtime):
     input_file.close()
     output_file.close()
 
-def main(filename, time):
+def main(filename, time=3):
     filename = filename
     rtime = time
     O_EVTONLY = 0x8000
@@ -67,4 +67,7 @@ if __name__=="__main__":
             help="the browser refresh time, default is 3")
     args = parser.parse_args()
     print "Press Ctrl and C to stop..."
-    sys.exit(main(args.filename, args.time))
+    if args.time:
+        sys.exit(main(args.filename, args.time))
+    else: 
+        sys.exit(main(args.filename))
