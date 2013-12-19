@@ -1,11 +1,13 @@
 from jinja2 import Environment, FileSystemLoader
+import argparse
 import select
 import markdown
 import codecs
+import argparse
 import os
 import sys
 
-#This script will monitor the markdown file, when the file is changed, the script
+#This script monitors the modification of markdown file, when the file is changed, the script
 #call the Markdown.pl and integrate the output to the Jinja2 template for viewing 
 #in the browser. This script is written for usage in the Mac OS.
 
@@ -35,9 +37,9 @@ def md_to_html(filename, rtime):
     input_file.close()
     output_file.close()
 
-def main():
-    filename = "README.md"
-    rtime = 2
+def main(filename, time):
+    filename = filename
+    rtime = time
     O_EVTONLY = 0x8000
     fd = os.open(filename, O_EVTONLY)
     kq = select.kqueue()
@@ -61,4 +63,10 @@ def main():
         print "finished"
 
 if __name__=="__main__":
-    sys.exit(main())
+    parser = argparse.ArgumentParser(description="Check the changes of markdown, transform the changed \
+            markdown file into html and display the latest markdown content in browser")
+    parser.add_argument("filename", help="markdown file name you are editing")
+    parser.add_argument("-t", "--time", type=int, choices=[1,2,3,4,5], \
+            help="the browser refresh time, default is 3")
+    args = parser.parse_args()
+    sys.exit(main(args.filename, args.time))
