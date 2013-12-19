@@ -66,4 +66,5 @@ if __name__=="__main__":
     parser.add_argument("-t", "--time", type=int, choices=[1,2,3,4,5], \
             help="the browser refresh time, default is 3")
     args = parser.parse_args()
+    print "Press Ctrl and C to stop..."
     sys.exit(main(args.filename, args.time))
