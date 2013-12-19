@@ -7,20 +7,17 @@ import argparse
 import os
 import sys
 
-#This script monitors the modification of markdown file, when the file is changed, the script
-#call the Markdown.pl and integrate the output to the Jinja2 template for viewing 
-#in the browser. This script is written for usage in the Mac OS.
+#This script wait for save event in markdown file, transforms the modified markdown file
+#into html using python markdown, and renders the content using python Jinja2 template 
+#This script is mainly written for the Mac OS X.
 
-#The purpose of using select and kqueue is to avoid the loop check sleep
-#pattern. This script will be blocked until the system inform it that
-#some changes have happened in the file.
+#The purpose of using select and kqueue is to avoid the loop-check-sleep pattern. 
 
 #O_EVTONLY is defined as 0x8000 in the OS X header files.
 #kqueue funcionality in watchdog for Mac OS
 #https://github.com/gorakhargosh/watchdog/blob/master/src/watchdog/observers/kqueue.py
 #documentation for select
 #http://docs.python.org/2.7/library/select.html
-
 
 def md_to_html(filename, rtime):
     html_filename = "%s.html"
